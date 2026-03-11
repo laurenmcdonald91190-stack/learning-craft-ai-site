@@ -1367,7 +1367,7 @@
           <textarea id="f-message" placeholder="Tell us a bit about your needs or questions…"></textarea>
         </div>
         <div class="form-submit">
-          <button class="btn btn-primary" onclick="handleSubmit()">Send Message <span class="arrow">→</span></button>
+          <button class="btn btn-primary" id="submit-btn" onclick="handleSubmit()">Send Message <span class="arrow">→</span></button>
           <div class="form-success" id="form-success">Message sent — we'll be in touch soon.</div>
         </div>
       </div>
@@ -1431,16 +1431,43 @@
   });
 
   // ── CONTACT FORM ──
-  function handleSubmit() {
+  async function handleSubmit() {
     const name = document.getElementById('f-name').value.trim();
     const email = document.getElementById('f-email').value.trim();
+    const interest = document.getElementById('f-interest').value;
+    const message = document.getElementById('f-message').value.trim();
+
+    // Basic validation
     if (!name || !email) {
       document.getElementById('f-name').style.borderColor = name ? '' : 'rgba(155,93,229,0.5)';
       document.getElementById('f-email').style.borderColor = email ? '' : 'rgba(155,93,229,0.5)';
       return;
     }
-    document.getElementById('form-success').classList.add('show');
-    document.querySelector('.form-submit .btn').style.display = 'none';
+
+    const btn = document.getElementById('submit-btn');
+    btn.textContent = 'Sending…';
+    btn.disabled = true;
+
+    try {
+      const res = await fetch('https://formspree.io/f/xojkegkk', {
+        method: 'POST',
+        headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, interest, message })
+      });
+
+      if (res.ok) {
+        document.getElementById('form-success').classList.add('show');
+        btn.style.display = 'none';
+      } else {
+        btn.textContent = 'Error — please try again';
+        btn.disabled = false;
+        btn.style.background = 'rgba(155,93,229,0.2)';
+        btn.style.color = 'var(--violet)';
+      }
+    } catch (err) {
+      btn.textContent = 'Error — please try again';
+      btn.disabled = false;
+    }
   }
 </script>
 </body>
