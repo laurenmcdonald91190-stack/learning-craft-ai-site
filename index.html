@@ -1779,7 +1779,10 @@
 
 <script>
   // ── NAVIGATION ──
+  const VALID_PAGES = ['home', 'about', 'services', 'courses', 'demo', 'contact'];
+
   function navigate(page) {
+    if (!VALID_PAGES.includes(page)) page = 'home';
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
     document.getElementById('page-' + page).classList.add('active');
 
@@ -1788,9 +1791,32 @@
       a.classList.toggle('active', a.dataset.page === page);
     });
 
+    // Update URL hash without triggering hashchange
+    history.pushState(null, '', page === 'home' ? '#' : '#' + page);
+
     window.scrollTo({ top: 0, behavior: 'instant' });
     initFadeIns();
   }
+
+  // Load correct page from hash on arrival
+  function loadFromHash() {
+    const hash = window.location.hash.replace('#', '').trim();
+    const page = VALID_PAGES.includes(hash) ? hash : 'home';
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById('page-' + page).classList.add('active');
+    document.querySelectorAll('.nav-links a').forEach(a => {
+      a.classList.toggle('active', a.dataset.page === page);
+    });
+    initFadeIns();
+    if (page === 'home') {
+      document.querySelectorAll('#page-home .fade-in').forEach(el => {
+        setTimeout(() => el.classList.add('visible'), 100);
+      });
+    }
+  }
+
+  // Handle browser back/forward
+  window.addEventListener('hashchange', loadFromHash);
 
   function toggleMenu() {
     document.getElementById('mobile-menu').classList.toggle('open');
@@ -1816,11 +1842,7 @@
 
   // Immediately trigger for hero (above fold)
   window.addEventListener('load', () => {
-    initFadeIns();
-    // Trigger home page elements right away
-    document.querySelectorAll('#page-home .fade-in').forEach(el => {
-      setTimeout(() => el.classList.add('visible'), 100);
-    });
+    loadFromHash();
   });
 
   // ── CONTACT FORM ──
