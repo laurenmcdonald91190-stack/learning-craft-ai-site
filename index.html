@@ -758,6 +758,51 @@
     font-size: 0.8rem;
     color: var(--text-dim, #555e6e);
   }
+  .demo-login-hint {
+    margin-top: 0.85rem;
+    font-size: 0.8rem;
+    color: var(--text-dim, #555e6e);
+  }
+
+  /* Nav demo highlight */
+  .nav-demo {
+    color: var(--cyan) !important;
+    border: 1px solid rgba(0,229,200,0.3);
+    padding: 0.25rem 0.75rem !important;
+    border-radius: 6px;
+    transition: background 0.2s, border-color 0.2s;
+  }
+  .nav-demo:hover {
+    background: rgba(0,229,200,0.08);
+    border-color: var(--cyan);
+  }
+
+  /* Demo page */
+  .demo-page-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-bottom: 2.5rem;
+  }
+  .demo-page-card {
+    background: var(--bg2);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 14px;
+    padding: clamp(1.5rem, 3vw, 2rem);
+  }
+  .demo-preview-full {
+    background: var(--bg3);
+    border: 1px solid rgba(0,229,200,0.12);
+    border-radius: 12px;
+    overflow: hidden;
+    max-width: 780px;
+    margin: 0 auto;
+    box-shadow: 0 0 40px rgba(0,229,200,0.05), 0 20px 48px rgba(0,0,0,0.4);
+  }
+  @media (max-width: 768px) {
+    .demo-page-grid { grid-template-columns: 1fr; }
+  }
+
   .demo-preview {
     background: var(--bg3);
     border: 1px solid rgba(255,255,255,0.06);
@@ -1213,6 +1258,7 @@
     <li><a onclick="navigate('about')" data-page="about">About</a></li>
     <li><a onclick="navigate('services')" data-page="services">Business Services</a></li>
     <li><a onclick="navigate('courses')" data-page="courses">Courses</a></li>
+    <li><a onclick="navigate('demo')" data-page="demo" class="nav-demo">Try Demo</a></li>
     <li><a onclick="navigate('contact')" data-page="contact">Contact</a></li>
   </ul>
   <a class="nav-cta" onclick="navigate('contact')">Work With Us</a>
@@ -1227,6 +1273,7 @@
   <a onclick="navigate('about');closeMenu()">About</a>
   <a onclick="navigate('services');closeMenu()">Business Services</a>
   <a onclick="navigate('courses');closeMenu()">Individual Courses</a>
+  <a onclick="navigate('demo');closeMenu()" class="nav-demo">Try Demo</a>
   <a onclick="navigate('contact');closeMenu()">Contact</a>
 </div>
 
@@ -1568,6 +1615,86 @@
     </div>
   </div>
 
+  <footer>
+    <div class="footer-logo">Learning Craft <span>AI</span></div>
+    <p class="footer-copy">© 2025 Learning Craft AI. All rights reserved.</p>
+    <ul class="footer-links">
+      <li><a onclick="navigate('home')">Home</a></li>
+      <li><a onclick="navigate('contact')">Contact</a></li>
+    </ul>
+  </footer>
+</div>
+
+<!-- ══════════════════════════════════
+     PAGE: DEMO
+══════════════════════════════════ -->
+<div id="page-demo" class="page">
+  <div class="container section">
+    <div class="tag">Free Preview</div>
+    <h1 class="section-title">Try the Platform<br><span class="accent-c">No Sign-Up Required</span></h1>
+    <p class="lead" style="max-width:580px; margin-bottom: 3rem;">Step inside a real sample module from our contributor training curriculum. Get a feel for the lessons, knowledge checks, XP system, and everything the platform offers.</p>
+
+    <div class="demo-page-grid">
+
+      <div class="demo-page-card fade-in">
+        <div class="demo-course-tag" style="color:var(--cyan); border-color:rgba(0,229,200,0.3)">For Individuals</div>
+        <h3 class="demo-course-title">Explore the learning experience</h3>
+        <p class="demo-course-desc">See exactly what contributors learn — evaluation fundamentals, what good responses look like, and a live knowledge check with instant feedback.</p>
+        <ul class="demo-course-meta">
+          <li>📖 3 lessons included</li>
+          <li>✅ Knowledge checks with explanations</li>
+          <li>⚡ XP, badges & streak tracking</li>
+          <li>🏆 Leaderboard preview</li>
+        </ul>
+        <a class="btn btn-primary" href="https://courses.learningcraftai.com" target="_blank">Launch Demo <span class="arrow">→</span></a>
+        <p class="demo-login-hint">Login with <strong style="color:var(--cyan)">demo@learningcraftai.com</strong><br>Password: <strong style="color:var(--cyan)">lcaidemo2026</strong></p>
+      </div>
+
+      <div class="demo-page-card fade-in">
+        <div class="demo-course-tag" style="color:var(--violet); border-color:rgba(155,93,229,0.3)">For Companies</div>
+        <h3 class="demo-course-title">See what your team would experience</h3>
+        <p class="demo-course-desc">The same platform we deploy for B2B clients — with gamification, progress tracking, and team analytics built in. Try it yourself before you talk to us.</p>
+        <ul class="demo-course-meta">
+          <li>🎮 Gamified engagement mechanics</li>
+          <li>📊 Progress & completion tracking</li>
+          <li>🔧 Admin course builder view</li>
+          <li>🚀 Ready to white-label or license</li>
+        </ul>
+        <a class="btn btn-outline-v" href="https://courses.learningcraftai.com" target="_blank">View Platform Demo <span class="arrow">→</span></a>
+        <p class="demo-login-hint" style="margin-top:0.85rem">Same credentials work — or <a onclick="navigate('contact')" style="color:var(--cyan);cursor:pointer;text-decoration:underline">book a walkthrough</a> with us directly.</p>
+      </div>
+
+    </div>
+
+    <div class="demo-preview-full fade-in">
+      <div class="demo-preview-bar">
+        <span class="demo-preview-dot" style="background:#ff6b6b"></span>
+        <span class="demo-preview-dot" style="background:#f5c842"></span>
+        <span class="demo-preview-dot" style="background:#00e5c8"></span>
+        <span class="demo-preview-title">courses.learningcraftai.com — Demo Mode</span>
+      </div>
+      <div class="demo-preview-screen">
+        <div class="demo-stat-row">
+          <div class="demo-stat"><span class="demo-stat-num" style="color:var(--cyan)">Level 1</span><span class="demo-stat-label">Current Level</span></div>
+          <div class="demo-stat"><span class="demo-stat-num" style="color:var(--violet)">0 XP</span><span class="demo-stat-label">Experience</span></div>
+          <div class="demo-stat"><span class="demo-stat-num" style="color:#f5c842">🔥 0</span><span class="demo-stat-label">Day Streak</span></div>
+          <div class="demo-stat"><span class="demo-stat-num" style="color:#f5c842">0</span><span class="demo-stat-label">Badges</span></div>
+        </div>
+        <div class="demo-module-card">
+          <div class="demo-module-tag">DEMO COURSE</div>
+          <div class="demo-module-name">AI Contributor Training: Sample Module</div>
+          <div class="demo-progress-bar"><div class="demo-progress-fill" style="width:0%"></div></div>
+          <div class="demo-module-meta">3 lessons · Start anytime · Free preview</div>
+        </div>
+        <div class="demo-lesson-list">
+          <div class="demo-lesson"><span class="demo-lesson-icon">▶</span> Lesson 1: What Is RLHF and Why It Depends on You</div>
+          <div class="demo-lesson"><span class="demo-lesson-icon">▶</span> Lesson 2: Evaluating Responses — What Good Looks Like</div>
+          <div class="demo-lesson"><span class="demo-lesson-icon">▶</span> Lesson 3: Knowledge Check</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
   <footer>
     <div class="footer-logo">Learning Craft <span>AI</span></div>
     <p class="footer-copy">© 2025 Learning Craft AI. All rights reserved.</p>
